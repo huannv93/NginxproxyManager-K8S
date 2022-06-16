@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: nginx-pv111
+spec:
+  capacity:
+    storage: 106Mi # size of the storage
+  accessModes: # access mode
+    - ReadWriteMany  # can be mounted by a single wokrer node for reading and writing
+  persistentVolumeReclaimPolicy: Retain
+  nfs:
+    path: "/data/let/"
+    server: "192.168.56.20"

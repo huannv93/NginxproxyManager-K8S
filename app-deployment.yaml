@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.26.0 (40646f47)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: app
+  name: app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: app
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.26.0 (40646f47)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: app
+    spec:
+      containers:
+        - image: jc21/nginx-proxy-manager:latest
+          name: app
+          ports:
+            - containerPort: 80
+            - containerPort: 81
+            - containerPort: 443
+          resources: {}
+          volumeMounts:
+            - mountPath: /data
+              name: app-claim000
+            - mountPath: /etc/letsencrypt
+              name: app-claim111
+      restartPolicy: Always
+      volumes:
+        - name: app-claim000
+          persistentVolumeClaim:
+            claimName: app-claim000
+        - name: app-claim111
+          persistentVolumeClaim:
+            claimName: app-claim111
+status: {}

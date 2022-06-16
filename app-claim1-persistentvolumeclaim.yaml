@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  creationTimestamp: null
+  labels:
+    io.kompose.service: app-claim111
+  name: app-claim111
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 106Mi
+status: {}
